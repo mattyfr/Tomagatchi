@@ -22,8 +22,18 @@ public class Tamagotchi
     }
     public void Hi()
     {
-        Console.WriteLine(_words[Random.Shared.Next(0,_words.Count())]);
-        reduceBoredom();
+        if (_words.Count() == 0)
+        {
+            Console.WriteLine("Tamagaotchi dose not know any words");
+        }
+        else
+        {
+            for(int i =0; i <3; i++)
+            {
+                Console.WriteLine(_words[Random.Shared.Next(0,_words.Count())]);
+            }
+            reduceBoredom();
+        }
     }
     public void Teach()
     {
