@@ -3,40 +3,28 @@ using System.Data;
 using System.Runtime.InteropServices;
 using ConsoleApp1;
 
-Console.WriteLine("pick a name for your Tamagotchi");
-Tamagotchi tamagotchi = new Tamagotchi{name = Console.ReadLine(), preferedFood = Random.Shared.Next(0,4)};
-int money = 0;
-while (tamagotchi.isAlive)
+Tamagotchi tamagotchi = new Tamagotchi();
+while (tamagotchi.GetAlive())
 {
-    WriteStats(tamagotchi, money);
-    tamagotchi = Tamagotchi.NextDay(tamagotchi);
-    (money, tamagotchi) = GetCommand(money, tamagotchi);
-    Console.ReadLine();
-}
-static void WriteStats(Tamagotchi tamagotchi, int money)
-{
-    Console.WriteLine($"Hunger: {tamagotchi.hunger} \n Boredom: {tamagotchi.boredom} \n Moeny: {money}");
-}
-static (int,Tamagotchi) GetCommand(int money, Tamagotchi tamagotchi)
-{
-    string command = Console.ReadLine();
-    if (command == "feed" && money > 1)
+    int Choice;
+    Console.WriteLine("1: Feed \n 2: Hi \n 3: Teach \n 4: Print stats");
+    int.TryParse(Console.ReadLine(), out Choice);
+    if (Choice == 1)
     {
-        money--;
-        tamagotchi = Tamagotchi.feed(tamagotchi);
+        tamagotchi.Feed();
     }
-    else if (command == "feed" && money < 1)
+    else if (Choice == 2)
     {
-        Console.WriteLine("you cant afford food maby get a job");
+        tamagotchi.Hi();
     }
-    else if (command == "pet")
+    else if (Choice == 3)
     {
-        tamagotchi.boredom-= 2;
-        Console.WriteLine ($"You pet {tamagotchi.name} boredom decreased by 2");
+        tamagotchi.Teach();
     }
-    else if (command == "work")
+    else if (Choice == 4)
     {
-        money += 4;
+        tamagotchi.PrintSats();
     }
-    return (money, tamagotchi);
+    tamagotchi.Tick();
+
 }

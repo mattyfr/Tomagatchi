@@ -5,68 +5,54 @@ namespace ConsoleApp1;
 
 public class Tamagotchi
 {
-    public int hunger = 0;
-    public int boredom = 0;
-    public List<String> words = new List<string> { };
-    public bool isAlive = true;
-    public string name = "";
-    public int preferedFood;
-    public static Tamagotchi NextDay(Tamagotchi tamagotchi)
+    private int _hunger = 0;
+    private int _boredom = 0;
+    private List<String> _words = new List<string> {};
+    private bool _isAlive = true;
+    public string _name = "";
+    public int _preferedFood;
+    public void Tick()
     {
-        tamagotchi.hunger += Random.Shared.Next(0, 3);
-        tamagotchi.boredom += Random.Shared.Next(0, 3);
-        if (tamagotchi.hunger > 10 || tamagotchi.boredom > 10)
-        {
-            tamagotchi.isAlive = false;
-        }
-        return tamagotchi;
+        _hunger++;
+        _boredom++;
     }
-    public static Tamagotchi feed(Tamagotchi tamagotchi)
+    public void Feed()
     {
-        Console.WriteLine("What do you want to feed your tamagotchi. Write the number");
-        Console.WriteLine("1: appel \n 2: meat \n 3: smoothie");
-        int Choice;
-        while (!int.TryParse(Console.ReadLine(), out Choice))
-        {
-            Console.WriteLine("try again");
-        }
-        if (Choice == 1)
-        {
-            Console.WriteLine("You feed your tamagatchi appel");
-            if (tamagotchi.preferedFood == Choice)
-            {
-                tamagotchi.hunger -= 3;
-            }
-            else
-            {
-                tamagotchi.hunger -= 2;
-            }
-        }
-        if (Choice == 2)
-        {
-            Console.WriteLine("You feed your tamagatchi meat");
-            if (tamagotchi.preferedFood == Choice)
-            {
-                tamagotchi.hunger -= 3;
-            }
-            else
-            {
-                tamagotchi.hunger -= 2;
-            }
-        }
-        if (Choice == 3)
-        {
-            Console.WriteLine("You feed your tamagatchi smoothie");
-            if (tamagotchi.preferedFood == Choice)
-            {
-                tamagotchi.hunger -= 3;
-            }
-            else
-            {
-                tamagotchi.hunger -= 2;
-            }
-        }
-        return tamagotchi;
+        _hunger--;
     }
-    
+    public void Hi()
+    {
+        Console.WriteLine(_words[Random.Shared.Next(0,_words.Count())]);
+        reduceBoredom();
+    }
+    public void Teach()
+    {
+        Console.WriteLine("What word do you want to teach you tamagotchi");
+        _words.Add(Console.ReadLine());
+    }
+    public void PrintSats()
+    {
+        Console.WriteLine(_hunger);
+        Console.WriteLine(_boredom);
+        if (GetAlive())
+        {
+            Console.WriteLine("Tamagotchi is alive");
+        }
+        else
+        {
+            Console.WriteLine("Tamagotchi is dead");
+        }
+    }
+    public bool GetAlive()
+    {
+        if (_hunger > 10 && _boredom > 10)
+        {
+            _isAlive=false;
+        }
+        return _isAlive;
+    }
+    private void reduceBoredom()
+    {
+        _boredom--;
+    }  
 }
