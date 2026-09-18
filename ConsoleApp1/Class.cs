@@ -1,14 +1,21 @@
 using System;
-
+using System.Text.Json;
+using System.Text.Json.Nodes;
+using System.Text.Json.Serialization;
 namespace ConsoleApp1;
 
 
 public class Tamagotchi
 {
+    [JsonInclude]
     private int _hunger = 0;
+    [JsonInclude]
     private int _boredom = 0;
+    [JsonInclude]
     private List<String> _words = new List<string> {};
+    [JsonInclude]
     private bool _isAlive = true;
+    [JsonInclude]
     public string _name = "";
     public int _preferedFood;
     public void Tick()
