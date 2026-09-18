@@ -15,6 +15,7 @@ public class Tamagotchi
     {
         _hunger++;
         _boredom++;
+        GetAlive();
     }
     public void Feed()
     {
@@ -42,8 +43,8 @@ public class Tamagotchi
     }
     public void PrintSats()
     {
-        Console.WriteLine(_hunger);
-        Console.WriteLine(_boredom);
+        Console.WriteLine($"{_name} is {_hunger} hungry out of 10");
+        Console.WriteLine($"{_name} is {_boredom} bored out of 10");
         if (GetAlive())
         {
             Console.WriteLine("Tamagotchi is alive");
@@ -55,7 +56,7 @@ public class Tamagotchi
     }
     public bool GetAlive()
     {
-        if (_hunger > 10 && _boredom > 10)
+        if (_hunger > 10 || _boredom > 10)
         {
             _isAlive=false;
         }
