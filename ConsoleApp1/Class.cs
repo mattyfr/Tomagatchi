@@ -22,6 +22,7 @@ public class Tamagotchi
     {
         _hunger++;
         _boredom++;
+        Console.WriteLine("Tick");
         GetAlive();
     }
     public void Feed()

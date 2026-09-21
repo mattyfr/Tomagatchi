@@ -4,8 +4,16 @@ using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 using System.Text.Json;
 using ConsoleApp1;
-
+using System.Threading;
 Tamagotchi tamagotchi = new Tamagotchi();
+
+Task t1 = Task.Run(
+    () =>
+    {
+        doStuff(tamagotchi);
+    }
+);
+
 if (File.Exists(@"saves.txt"))
 {
     Console.WriteLine("Do you want to load previus save file (Y/N)");
@@ -67,4 +75,12 @@ void save()
 void load()
 {
     tamagotchi = JsonSerializer.Deserialize<Tamagotchi>(File.ReadAllText(@"saves.txt"));
+}
+static void doStuff(Tamagotchi tamagotchi)
+{
+    while (true)
+    {
+        Thread.Sleep(7500);
+        tamagotchi.Tick();
+    }
 }
